@@ -2113,7 +2113,7 @@ format_partitions() {
       if [ "$FS" = "swap" ]; then
         # format swap partition with dd first because mkswap
         # doesnt overwrite sw-raid information!
-        mkfs -t xfs -f $DEV &> /dev/null
+        mkfs -t xfs -n ftype=1 -f $DEV &> /dev/null
         dd if=/dev/zero of=$DEV bs=256 count=8 &> /dev/null
         # then write swap information
         mkswap $DEV 2>&1 | debugoutput ; EXITCODE=$?
